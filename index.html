@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rametric</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap & Custom CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- AOS CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .navbar {
+        background-color: #343a40;
+      }
+      .navbar-brand {
+        color: #fff !important;
+      }
+      .navbar-nav .nav-link {
+        color: #fff !important;
+      }
+      .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
+      }
+      .hero {
+        background: url("your-hero-image.jpg") no-repeat center center/cover;
+        color: #fff;
+        padding: 100px 0; /* Adjust as needed */
+        text-align: center;
+      }
+      .hero h2 {
+        font-size: 3rem;
+        margin: 0; /* Ensure no extra margin */
+      }
+      .service-card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-10px);
+      }
+      .contact-form textarea {
+        resize: none;
+      }
+      footer {
+        background-color: #343a40;
+        color: #fff;
+        padding: 1rem 0;
+      }
+      footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <a class="navbar-brand" href="#">Rametric</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+    <!-- Hero Section -->
+     <br>
+    <section id="hero" class="services py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Innovative Solutions for Your Business</h2>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Services</h2>
+        <div class="row">
+          <!-- Service Cards -->
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <div class="service-card" data-aos="fade-up">
+              <i class="fas fa-laptop-code fa-3x mb-3"></i>
+              <h3>Website Development</h3>
+              <p>Modern, responsive, and user-friendly websites to grow your business.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+              <i class="fas fa-brain fa-3x mb-3"></i>
+              <h3>Local LLMs</h3>
+              <p>Integrate AI and machine learning models into your solutions.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+              <i class="fas fa-mobile-alt fa-3x mb-3"></i>
+              <h3>Mobile Applications</h3>
+              <p>Custom mobile apps for both Android and iOS to engage your customers.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+              <i class="fas fa-cogs fa-3x mb-3"></i>
+              <h3>Process Automation</h3>
+              <p>We assess your workflows and implement automated systems to enhance efficiency.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-light py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">About Us</h2>
+        <p class="text-center">We are a team of tech enthusiasts providing cutting-edge solutions in the fields of web development, AI, and mobile application development. Our goal is to bring value to your business by creating innovative and impactful products.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Contact Us</h2>
+        <form id="contactForm" class="contact-form">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="message" rows="4" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+      <p>&copy; 2024 Rametric All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <!-- JavaScript to include header and footer -->
+    <script>
+      async function loadContent() {
+        try {
+          // Fetch and insert header
+          const headerResponse = await fetch("header.html");
+          const headerContent = await headerResponse.text();
+          document.getElementById("header-placeholder").innerHTML =
+            headerContent;
+
+          // Fetch and insert footer
+          const footerResponse = await fetch("footer.html");
+          const footerContent = await footerResponse.text();
+          document.getElementById("footer-placeholder").innerHTML =
+            footerContent;
+        } catch (error) {
+          console.error("Error loading content:", error);
+        }
+      }
+
+      // Call the function on page load
+      document.addEventListener("DOMContentLoaded", loadContent);
+    </script>
+  </body>
+</html>

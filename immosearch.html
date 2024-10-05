@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rametric</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap & Custom CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- AOS CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .navbar {
+        background-color: #343a40;
+      }
+      .navbar-brand {
+        color: #fff !important;
+      }
+      .navbar-nav .nav-link {
+        color: #fff !important;
+      }
+      .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
+      }
+
+   
+      .service-card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-10px);
+      }
+      .contact-form textarea {
+        resize: none;
+      }
+      footer {
+        background-color: #343a40;
+        color: #fff;
+        padding: 1rem 0;
+      }
+      footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+
+    <div id="header-placeholder"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<form id="searchForm">
+    <label>Query 1: <input type="text" id="query1" name="query1"></label><br>
+    <label>Query 2: <input type="text" id="query2" name="query2"></label><br>
+    <label>Query 3: <input type="text" id="query3" name="query3"></label><br>
+    <label>Query 4: <input type="text" id="query4" name="query4"></label><br>
+    <label>Query 5: <input type="text" id="query5" name="query5"></label><br>
+    <label>Site 1: <input type="text" id="site1" name="site1"></label><br>
+    <label>Site 2: <input type="text" id="site2" name="site2"></label><br>
+    <label>Site 3: <input type="text" id="site3" name="site3"></label><br>
+    <label>Site 4: <input type="text" id="site4" name="site4"></label><br>
+    <label>Site 5: <input type="text" id="site5" name="site5"></label><br>
+    <label>Duration: 
+        <select id="duration">
+            <option value="">Select duration</option>
+            <option value="1 day">1 day</option>
+            <option value="3 days">3 days</option>
+            <option value="7 days">7 days</option>
+            <option value="10 days">10 days</option>
+        </select>
+    </label><br>
+    <button type="button" onclick="buildSearch()">Search</button>
+    <button type="button" onclick="resetForm()">Reset Form</button>
+</form>
+
+<script>
+    function getQueryString() {
+        const queries = [document.getElementById('query1').value, document.getElementById('query2').value, document.getElementById('query3').value, document.getElementById('query4').value, document.getElementById('query5').value];
+        const nonEmptyQueries = queries.filter(q => q.trim() !== '');
+        return nonEmptyQueries.join(' OR ');
+    }
+
+    function getSitesString() {
+        const sites = [document.getElementById('site1').value, document.getElementById('site2').value, document.getElementById('site3').value, document.getElementById('site4').value, document.getElementById('site5').value];
+        const nonEmptySites = sites.filter(s => s.trim() !== '');
+        return nonEmptySites.map(site => ` site:${site}`).join('   OR  ');
+    }
+
+    function getDurationString() {
+        const duration = document.getElementById('duration').value;
+        if (duration === '1 day') return '&tbs=qdr:d1';
+        if (duration === '3 days') return '&tbs=qdr:d3';
+        if (duration === '7 days') return '&tbs=qdr:d7';
+        if (duration === '10 days') return '&tbs=qdr:d10';
+        return '';
+    }
+
+    function buildSearch() {
+        let fullSearchString = `(${getQueryString()}) AND (Geneve OR Geneva)`;
+        fullSearchString += getSitesString();
+        //fullSearchString += getDurationString();
+
+        // Set cookies
+        setCookie('query1', document.getElementById('query1').value);
+        setCookie('query2', document.getElementById('query2').value);
+        setCookie('query3', document.getElementById('query3').value);
+        setCookie('query4', document.getElementById('query4').value);
+        setCookie('query5', document.getElementById('query5').value);
+        setCookie('site1', document.getElementById('site1').value);
+        setCookie('site2', document.getElementById('site2').value);
+        setCookie('site3', document.getElementById('site3').value);
+        setCookie('site4', document.getElementById('site4').value);
+        setCookie('site5', document.getElementById('site5').value);
+        setCookie('duration', document.getElementById('duration').value); 
+
+        // Open a new Google search window
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(fullSearchString) + getDurationString()}`, '_blank');
+    }
+
+    function setCookie(name, value, days = 7) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `; expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value || ''}${expires}; path=/`;
+    }
+
+    function resetForm() {
+        document.getElementById('searchForm').reset();
+
+        // Clear cookies
+        ['query1', 'query2', 'query3', 'query4', 'query5', 'site1', 'site2', 'site3', 'site4', 'site5', 'duration'].forEach(field => {
+            setCookie(field, '', -1);
+        });
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    window.onload = function () {
+        // Prepopulate fields with cookie values
+        ['query1', 'query2', 'query3', 'query4', 'query5', 'site1', 'site2', 'site3', 'site4', 'site5', 'duration'].forEach(field => {
+            document.getElementById(field).value = getCookie(field) || '';
+        });
+    }
+</script>
+
+<div id="footer-placeholder"></div>
+
+
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <!-- JavaScript to include header and footer -->
+    <script>
+      async function loadContent() {
+        try {
+          // Fetch and insert header
+          const headerResponse = await fetch("header.html");
+          const headerContent = await headerResponse.text();
+          document.getElementById("header-placeholder").innerHTML =
+            headerContent;
+
+          // Fetch and insert footer
+          const footerResponse = await fetch("footer.html");
+          const footerContent = await footerResponse.text();
+          document.getElementById("footer-placeholder").innerHTML =
+            footerContent;
+        } catch (error) {
+          console.error("Error loading content:", error);
+        }
+      }
+
+      // Call the function on page load
+      document.addEventListener("DOMContentLoaded", loadContent);
+    </script> 
+  </body>
+</html>

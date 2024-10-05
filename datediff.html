@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date and Time Difference Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Date and Time Difference Calculator</h2>
+
+<form id="calcForm">
+    <label for="startdate">Start Date (mm/dd/yyyy):</label>
+    <input type="date" id="startdate" name="startdate" required>
+
+    <label for="starttime">Start Time:</label>
+    <input type="time" id="starttime" name="starttime" required>
+
+    <label for="enddate">End Date (mm/dd/yyyy):</label>
+    <input type="date" id="enddate" name="enddate" required value="">
+
+    <label for="endtime">End Time:</label>
+    <input type="time" id="endtime" name="endtime" required value="">
+
+    <button type="button" onclick="calculateDifference()">Calculate</button>
+</form>
+
+<div class="result" id="result"></div>
+
+<script>
+    document.getElementById('enddate').valueAsDate = new Date();  // Set default to today
+    document.getElementById('endtime').value = new Date().toTimeString().slice(0,5);  // Set default to current time
+
+    function calculateDifference() {
+        const startDate = document.getElementById('startdate').value;
+        const startTime = document.getElementById('starttime').value;
+        const endDate = document.getElementById('enddate').value;
+        const endTime = document.getElementById('endtime').value;
+
+        if (!startDate || !startTime || !endDate || !endTime) {
+            alert('Please fill all fields.');
+            return;
+        }
+
+        const startDateTime = new Date(`${startDate}T${startTime}`);
+        const endDateTime = new Date(`${endDate}T${endTime}`);
+
+        if (endDateTime < startDateTime) {
+            alert('End date/time cannot be before start date/time.');
+            return;
+        }
+
+        const diffMilliseconds = endDateTime - startDateTime;
+
+        const diffSeconds = Math.floor(diffMilliseconds / 1000);
+        const diffMinutes = Math.floor(diffSeconds / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        const diffWeeks = Math.floor(diffDays / 7);
+        const diffMonths = (endDateTime.getFullYear() - startDateTime.getFullYear()) * 12 
+                          + (endDateTime.getMonth() - startDateTime.getMonth());
+
+        document.getElementById('result').innerHTML = `
+            <h3>Difference:</h3>
+            <p>Seconds: ${diffSeconds}</p>
+            <p>Minutes: ${diffMinutes}</p>
+            <p>Hours: ${diffHours}</p>
+            <p>Days: ${diffDays}</p>
+            <p>Weeks: ${diffWeeks}</p>
+            <p>Months (approx): ${diffMonths}</p>
+        `;
+    }
+</script> 
+
+</body>
+</html>
