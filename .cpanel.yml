@@ -1,0 +1,29 @@
+# .cpanel.yml
+application:
+  name: rametric          # Name of your application
+  version: 1.0.0          # Application version
+  root: ./                # Root directory of your application
+
+# Node.js application (if applicable)
+nodejs:
+  version: '14'           # Specify Node.js version if applicable
+  entry: index.js         # Entry point of your Node.js application
+
+# PHP settings (if applicable)
+php:
+  version: '7.4'          # Specify PHP version if applicable
+  settings:
+    display_errors: 1     # Enable error display (for development)
+    error_reporting: E_ALL # Set error reporting level
+
+# Custom build commands
+build:
+  commands:
+    - npm install          # If you are using npm
+    - npm run build        # If you have a build command (adjust as necessary)
+
+# Deployment settings
+deployment:
+  strategy: git           # Deployment strategy
+  repository: git@github.com:Minewine/rametric.git # Your repository
+  branch: main            # The branch you want to deploy
