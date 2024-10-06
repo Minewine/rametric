@@ -35,7 +35,7 @@ ssh -p 21098 -o StrictHostKeyChecking=accept-new ramemvpl@premium66.web-hosting.
     set -e
     echo "Current directory: \$(pwd)"
     echo "Changing to repository directory..."
-    cd /home/ramemvpl/repositories/rametric || { echo "Failed to change directory"; exit 1; }
+    cd /home || { echo "Failed to change directory"; exit 1; }
     echo "Current directory: \$(pwd)"
     echo "Pulling changes from GitHub..."
     git pull origin main || { echo "Failed to pull changes"; exit 1; }
