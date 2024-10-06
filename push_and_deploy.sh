@@ -35,8 +35,15 @@ ssh -p 21098 -o StrictHostKeyChecking=accept-new ramemvpl@premium66.web-hosting.
     set -e
     echo "Current directory: \$(pwd)"
     echo "Changing to repository directory..."
-    cd /home || { echo "Failed to change directory"; exit 1; }
-    echo "Current directory: \$(pwd)"
+    cd public_html/home || { echo "Failed to change directory"; exit 1; }
+    echo "Current directory after change: \$(pwd)"
+    
+    # Check if this is a Git repository
+    if [ ! -d .git ]; then
+        echo "Error: Not a Git repository in this directory."
+        exit 1
+    fi
+    
     echo "Pulling changes from GitHub..."
     git pull origin main || { echo "Failed to pull changes"; exit 1; }
     echo "Changes pulled successfully"
