@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Rametric offers innovative solutions including web development, local LLMs, mobile apps, and process automation to help businesses thrive in the digital age.">
+    <title>Rametric - Date and Time Difference Calculator</title>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Defer JavaScript Loading for better performance -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        #calcForm {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #calcForm label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        #calcForm input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #calcForm button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #calcForm button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .copy-button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header and Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="https://www.rametric.com" aria-label="Rametric Homepage">
+                    <i class="fas fa-brain"></i> <!-- Font Awesome Brain Icon -->
+                    Rametric
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Date and Time Difference Calculator</h2>
+
+    <form id="calcForm">
+        <label for="startdate">Start Date:</label>
+        <input type="date" id="startdate" name="startdate" required>
+
+        <label for="starttime">Start Time:</label>
+        <input type="time" id="starttime" name="starttime" required>
+
+        <label for="enddate">End Date:</label>
+        <input type="date" id="enddate" name="enddate" required value="">
+
+        <label for="endtime">End Time:</label>
+        <input type="time" id="endtime" name="endtime" required value="">
+
+        <button type="button" onclick="calculateDifference()">Calculate</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('enddate').valueAsDate = new Date();  // Set default to today
+
+        // Set default to current time for both start and end time fields
+        const now = new Date();
+        document.getElementById('starttime').value = now.toTimeString().slice(0, 5);  // Default to current time
+        document.getElementById('endtime').value = now.toTimeString().slice(0, 5);  // Default to current time
+
+        function calculateDifference() {
+            const startDate = document.getElementById('startdate').value;
+            const startTime = document.getElementById('starttime').value;
+            const endDate = document.getElementById('enddate').value;
+            const endTime = document.getElementById('endtime').value;
+
+            if (!startDate || !startTime || !endDate || !endTime) {
+                alert('Please fill all fields.');
+                return;
+            }
+
+            const startDateTime = new Date(`${startDate}T${startTime}`);
+            const endDateTime = new Date(`${endDate}T${endTime}`);
+
+            if (endDateTime < startDateTime) {
+                alert('End date/time cannot be before start date/time.');
+                return;
+            }
+
+            const diffMilliseconds = endDateTime - startDateTime;
+
+            const diffSeconds = Math.floor(diffMilliseconds / 1000);
+            const diffMinutes = Math.floor(diffSeconds / 60);
+            const diffHours = Math.floor(diffMinutes / 60);
+            const diffDays = Math.floor(diffHours / 24);
+            const diffWeeks = Math.floor(diffDays / 7);
+            const diffMonths = (endDateTime.getFullYear() - startDateTime.getFullYear()) * 12 
+                              + (endDateTime.getMonth() - startDateTime.getMonth());
+
+            document.getElementById('result').innerHTML = `
+                <h3>Difference:</h3>
+                <p>Seconds: ${diffSeconds}</p>
+                <p>Minutes: ${diffMinutes}</p>
+                <p>Hours: ${diffHours}</p>
+                <p>Days: ${diffDays}</p>
+                <p>Weeks: ${diffWeeks}</p>
+                <p>Months (approx): ${diffMonths}</p>
+                <button class="copy-button" onclick="copyResults()">Copy Results</button>
+            `;
+        }
+
+        function copyResults() {
+            const resultText = document.getElementById('result').innerText;
+            navigator.clipboard.writeText(resultText).then(() => {
+                alert('Results copied to clipboard!');
+            }, (err) => {
+                alert('Failed to copy results.');
+            });
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 Rametric. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Initialize AOS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init();
+        });
+    </script>
+
+</body>
+
+</html>
